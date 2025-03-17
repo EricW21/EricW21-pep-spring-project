@@ -15,13 +15,5 @@ public interface MessageRepository extends JpaRepository<Message, Long>{
     Optional<Message> findMessageByPostedByAndMessageTextAndTimePostedEpoch(Integer user_id,String test,Long timePostedEpoch);
 
     List<Message> findByPostedBy(Integer postedBy);
-    // Message createMessage(Message Message);
-
-    // Message deleteMessageById(int id);
-
-    // Message updateMessageText(int id, String message_text);
-
-    // List<Message> retrieveMessagesByUserId(int user_id);
-
-    // List<Message> getAllMessages();
+    
 }
