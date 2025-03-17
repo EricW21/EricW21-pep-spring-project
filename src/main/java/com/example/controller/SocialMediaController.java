@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.service.AccountService;
 import com.example.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.example.entity.Account;
 import com.example.entity.Message;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
