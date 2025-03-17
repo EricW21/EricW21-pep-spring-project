@@ -42,7 +42,7 @@ public class SocialMediaController {
         if (created==null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(account);
+        return ResponseEntity.status(HttpStatus.OK).body(created);
 
     }
 
@@ -60,15 +60,53 @@ public class SocialMediaController {
                                  .body(null); 
         }
     }
-
+    @PostMapping("/messages")
+    public ResponseEntity createMessage(@RequestBody Message message) {
+        Message created = messageService.createMessage(message);
+        if (created==null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(created);
+    }
     @GetMapping("/messages")
     public ResponseEntity getAllMessages() {
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getAllMessages());
     }
     @GetMapping("/messages/{message_id}")
     public ResponseEntity getMessageById(@PathVariable("message_id") Long messageId) {
         
         return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessageById(messageId));
+    }
+    @DeleteMapping("/messages/{message_id}")
+    public ResponseEntity deleteMessageById(@PathVariable("message_id") int messageId) {
+        Message message = messageService.deleteMessageById(Integer.valueOf(messageId));
+        if (message!=null) {
+            return ResponseEntity.status(HttpStatus.OK).body(1);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+    }
+
+    @PatchMapping("/messages/{message_id}")
+    public ResponseEntity updateMessageById(@PathVariable("message_id") int messageId, @RequestBody Message halfMessage) {
+        String text = halfMessage.getMessageText();
+        if (text.trim().isEmpty() || text.length() > 255) {
+            
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        Message message = messageService.updateMessageById(Integer.valueOf(messageId),text);
+        if (message==null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(1);
+           
+        }
+    }
+    @GetMapping("/accounts/{account_id}/messages")
+    public ResponseEntity retrieveMessagesByPostedBy(@PathVariable("account_id") Integer postedBy) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.messageService.retrieveMessageByUser(postedBy));
     }
 
 }
