@@ -6,10 +6,11 @@ import java.util.List;
 
 
 import com.example.entity.Message;
-
+import java.util.Optional;
 public interface MessageRepository extends JpaRepository<Message, Long>{
 
-    // Message findMessageById(long id);
+
+    Optional<Message> findMessageByMessageId(Integer id);
 
     // Message createMessage(Message Message);
 

@@ -61,4 +61,14 @@ public class SocialMediaController {
         }
     }
 
+    @GetMapping("/messages")
+    public ResponseEntity getAllMessages() {
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+    @GetMapping("/messages/{message_id}")
+    public ResponseEntity getMessageById(@PathVariable("message_id") Long messageId) {
+        
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessageById(messageId));
+    }
+
 }

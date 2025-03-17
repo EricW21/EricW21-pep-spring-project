@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 // import java.sql.Timestamp;
-// import java.util.List;
+import java.util.List;
 
 
 import com.example.entity.Message;
-
+import java.util.Optional;
 import com.example.repository.MessageRepository;
 @Service
 @Transactional
@@ -19,5 +19,18 @@ public class MessageService {
     @Autowired
     public MessageService(MessageRepository messageRepository){
         this.messageRepository = messageRepository;
+    }
+
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    public Message getMessageById(long id) {
+        
+        Optional<Message> message = messageRepository.findMessageByMessageId(Integer.valueOf((int)id));
+        if (message.isPresent()) {
+            return message.get();
+        }
+        return null;
     }
 }
