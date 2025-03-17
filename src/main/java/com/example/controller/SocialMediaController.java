@@ -46,17 +46,17 @@ public class SocialMediaController {
 
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity processLogin(@RequestBody Account account) {
         Account accountOptional = accountService.processLogin(account);
 
         if (accountOptional!=null) {
            
-            return ResponseEntity.status( HttpStatus.OK).body(account);
+            return ResponseEntity.status( HttpStatus.OK).body(accountOptional);
         } 
         else {
             
-            return ResponseEntity.status(HttpStatus.CONFLICT)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                                  .body(null); 
         }
     }
